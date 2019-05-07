@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using WeBills.Models;
+using WeBills.Logic;
 
 namespace WeBills.Controllers
 {
@@ -17,7 +18,7 @@ namespace WeBills.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-
+        private ApplicationDbContext db = new ApplicationDbContext();
         public AccountController()
         {
         }
@@ -149,21 +150,49 @@ namespace WeBills.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            LogicClass lg = new LogicClass();
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                ApplicationUser user = new ApplicationUser();
+                //var filelength = upload.ContentLength;
+                //byte[] imageBytes = new byte[filelength];
+                //upload.InputStream.Read(imageBytes, 0, filelength);
+
+                user.UserName = model.Email; user.Email = model.Email; user.gender = model.gender; user.fname = model.fname;
+                user.lname = model.lname;
+                user.race = model.race; user.mstatus = model.mstatus; user.idno = model.idno;
+                user.age = lg.calcAge();/* user.Uimg=imageBytes;*/
+
                 var result = await UserManager.CreateAsync(user, model.Password);
+
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+
+                    Client cl = new Client
+                    {
+                        userID = user.Id,
+                        fname = model.fname,
+                        lname = model.lname,
+                        race = model.race,
+                        age = model.age,
+                        mstatus = model.mstatus,
+                        idno = Convert.ToInt64(model.idno),
+                        gender = model.gender
+                    };
+
+
+                    db.clients.Add(cl);
+                    db.SaveChanges();
+                    return RedirectToAction("Index", "Residences");
+
                 }
                 AddErrors(result);
             }

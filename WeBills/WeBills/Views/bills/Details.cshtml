@@ -1,0 +1,42 @@
+﻿@model WeBills.Models.bills
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>bills</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.homeid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.homeid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.waterCost)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.waterCost)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.electricCost)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.electricCost)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.billid }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

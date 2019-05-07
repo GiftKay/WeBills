@@ -1,0 +1,66 @@
+﻿@model WeBills.Models.Residence
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Residence</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.users.gender)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.users.gender)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.citytown)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.citytown)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.surbub)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.surbub)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Street)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Street)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.code)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.code)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.img)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.img)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.homeid }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
