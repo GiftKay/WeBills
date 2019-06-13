@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using WeBills.Models;
 using WeBills.Logic;
+using System.Web.Helpers;
+using System.IO;
 //Web Based Solution for online bill payments.
 
 namespace WeBills.Controllers
@@ -51,19 +53,40 @@ namespace WeBills.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "homeid,citytown,surbub,Street,code,img")] Residence residence)
+        public ActionResult Create(ResidenceViewModel model)
         {
             var cuser = db.Users.ToList().Find(x => x.Email == User.Identity.Name);
-            residence.Id = cuser.Id;
-            if (ModelState.IsValid)
+            model.Id = cuser.Id;
+            if (ModelState.IsValid && model.file.ContentLength > 0 && model.file!=null)
             {
+                var img = new WebImage(model.file.InputStream);
+                var guid = Guid.NewGuid().ToString().Replace("-", "");
+                var folderPath = $"~/UploadedFiles/Apartments";
 
-                db.residents.Add(residence);
+                var filepath = $"{folderPath}/{guid}{Path.GetExtension(model.file.FileName)}";
+
+                if (Directory.Exists(folderPath).Equals(false))
+                {
+                    Directory.CreateDirectory(Server.MapPath(folderPath));
+                }
+                Residence res = new Residence
+                {
+                    citytown = model.citytown,
+                    surbub = model.surbub,
+                    Street = model.Street,
+                    code = model.code,
+                    Id = model.Id
+                };
+
+                img.Save(filePath: filepath, forceCorrectExtension: true);
+                res.imgUrl = filepath;
+
+                db.residents.Add(res);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(residence);
+            return View(model);
         }
 
         // GET: Residences/Edit/5
@@ -239,6 +262,15 @@ namespace WeBills.Controllers
                 return RedirectToAction("Create");
             }
 
+            return View();
+        }
+
+        public ActionResult ManageRes(int id)
+        {
+            Residence r = db.residents.ToList().Find(x => x.homeid == id);
+            ViewBag.house = r.citytown + " " + r.surbub + " " + r.Street + " " + r.code;
+            ViewBag.img = r.imgUrl.Trim('~');
+            Session["Hid"] = id;
             return View();
         }
     }

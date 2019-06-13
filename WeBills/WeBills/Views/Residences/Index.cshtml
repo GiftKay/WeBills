@@ -4,11 +4,23 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2 class="mt-4">Residence(s)</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Add New", "Create")
 </p>
+@*<div class="container">
+    <div class="row">
+        <div class="card col-4">
+            <div class="card-img"></div>
+            <div class="card-header"> House 1</div>
+            <div class="card-body"> Pietermaritzburg</div>
+            <div class="card-footer">2019</div>
+        </div>     
+        <div class="card col-4">sdfsdfsdfsdfsdf</div> 
+        <div class="card col-4">sdfsdfsdfsdfsdf</div> 
+    </div>
+</div>*@
 <table class="table">
     <tr>
         <th>
@@ -26,9 +38,9 @@
         <th>
             @Html.DisplayNameFor(model => model.code)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.img)
-        </th>
+        </th>*@
         <th></th>
     </tr>
 
@@ -49,13 +61,14 @@
         <td>
             @Html.DisplayFor(modelItem => item.code)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.img)
-        </td>
+        </td>*@
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.homeid }) |
             @Html.ActionLink("Details", "Details", new { id=item.homeid }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.homeid })
+            @Html.ActionLink("Delete", "Delete", new { id=item.homeid }) |
+            @Html.ActionLink("ManageRes", "ManageRes", new { id = item.homeid })
         </td>
     </tr>
 }

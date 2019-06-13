@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
+using System.Web;
 
 namespace WeBills.Models
 {
@@ -82,5 +83,26 @@ namespace WeBills.Models
     {
         public string SelectedProvider { get; set; }
         public ICollection<System.Web.Mvc.SelectListItem> Providers { get; set; }
+    }
+
+    public class ResidenceViewModel
+    {
+        [Required]
+        [Display(Name = "City/Town")]
+        public string citytown { get; set; }
+        [Required]
+        [Display(Name = "Surbub")]
+        public string surbub { get; set; }
+        [Required]
+        [Display(Name = "Street Name")]
+        public string Street { get; set; }
+        [Required]
+        [Display(Name = "Postal Code")]
+        public int code { get; set; }
+        [Required]
+        [Display(Name = "Image")]
+        public HttpPostedFileBase file { get; set; }
+        public virtual ApplicationUser users { get; set; }
+        public string Id { get; set; }
     }
 }

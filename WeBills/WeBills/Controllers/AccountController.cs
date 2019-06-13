@@ -148,20 +148,26 @@ namespace WeBills.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(RegisterViewModel model,HttpPostedFile file)
         {
             LogicClass lg = new LogicClass();
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && file.ContentLength>0)
             {
                 ApplicationUser user = new ApplicationUser();
-                //var filelength = upload.ContentLength;
-                //byte[] imageBytes = new byte[filelength];
-                //upload.InputStream.Read(imageBytes, 0, filelength);
+                var filelength = file.ContentLength;
+                byte[] imageBytes = new byte[filelength];
+                file.InputStream.Read(imageBytes, 0, filelength);
 
-                user.UserName = model.Email; user.Email = model.Email; user.gender = model.gender; user.fname = model.fname;
+                user.UserName = model.Email;
+                user.Email = model.Email;
+                user.gender = model.gender;
+                user.fname = model.fname;
                 user.lname = model.lname;
-                user.race = model.race; user.mstatus = model.mstatus; user.idno = model.idno;
-                user.age = lg.calcAge();/* user.Uimg=imageBytes;*/
+                user.race = model.race;
+                user.mstatus = model.mstatus;
+                user.idno = model.idno;
+                user.age = lg.calcAge();
+                user.Uimg=imageBytes;
 
                 var result = await UserManager.CreateAsync(user, model.Password);
 

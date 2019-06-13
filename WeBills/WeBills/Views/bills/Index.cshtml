@@ -4,11 +4,8 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2 class="mt-4">Bills</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -35,9 +32,10 @@
             @Html.DisplayFor(modelItem => item.electricCost)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.billid }) |
-            @Html.ActionLink("Details", "Details", new { id=item.billid }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.billid })
+            <a class="btn btn-danger" href=""><i class="fa fa-backward"></i> Back</a>
+            @*@Html.ActionLink("Back", "Edit", new { id=item.billid })*@ |
+            @*@Html.ActionLink("Pay", "Details", new { id=item.billid })*@
+            <a class="btn btn-success" href=""><i class="fa fa-paypal"></i> Pay</a>
         </td>
     </tr>
 }

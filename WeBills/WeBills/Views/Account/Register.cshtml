@@ -5,12 +5,12 @@
 
 <h4 class="text-center text-uppercase mt-3">Create a new account</h4>
 
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    @Html.AntiForgeryToken()
-    <hr />
-    @Html.ValidationSummary("", new { @class = "text-danger" })
-    <div class="container">
+                @Html.AntiForgeryToken()
+                <hr />
+                @Html.ValidationSummary("", new { @class = "text-danger" })
+                <div class="container">
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
@@ -119,10 +119,9 @@
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
-                    @Html.LabelFor(m => m.Uimg, htmlAttributes: new { @class = "col-md-12" })
+                    @Html.Label("Upload File", htmlAttributes: new { @class = "col-md-12" })
                     <div class="col-md-12">
-                        <input type="file" id="upload" name="upload" />
-                        @Html.ValidationMessageFor(m => m.Uimg, "", new { @class = "text-danger" })
+                        <input type="file" id="file" name="file" />
                     </div>
                 </div>
             </div>

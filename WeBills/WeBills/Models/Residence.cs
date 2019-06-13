@@ -22,7 +22,7 @@ namespace WeBills.Models
         [Required]
         [Display(Name = "Postal Code")]
         public int code { get; set; }
-        public byte[] img { get; set; }
+        public string imgUrl { get; set; }
         public virtual ApplicationUser users { get; set; }
         public string Id { get; set; }
         public virtual bills bil { get; set; }

@@ -1,6 +1,9 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-image: url('../Attachments/Reall.jpg');
+    background-repeat:no-repeat;
+    background-size:cover;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -22,3 +25,33 @@ select,
 textarea {
     max-width: 280px;
 }
+
+a:hover {
+  color: #b200ff!important;
+  text-decoration: none;
+}
+.menu-item {
+    position:relative;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 800px;
+    height:100px;
+    width:100px;
+    text-align:center;
+    margin:auto;
+}
+/*.menu-item {
+    width:100%;
+  color: #000000;
+  text-decoration: none;
+  background-color: transparent;
+}*/
+
+.menu-item:hover {
+   width:120px;
+   cursor:pointer;
+   -webkit-transition: all .5s ease;
+   transition:all .5s ease;
+   color:rgb(178, 0, 255);
+   border: 1px solid rgb(189, 71, 239);
+}
+
